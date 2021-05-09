@@ -5,6 +5,7 @@ import numpy as np
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
+months_data = [ 'january', 'february', 'march', 'april', 'may', 'june' ]
 
 def get_filters():
     """
@@ -15,7 +16,6 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    months_data = [ 'january', 'february', 'march', 'april', 'may', 'june' ]
     days_data = [ 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' ]
     filter_option = [ 'month', 'day', 'both', 'none']
 
@@ -106,9 +106,8 @@ def load_data(city, month, day):
 
     # filter by month if applicable
     if month != 'all':
-        # use the index of the months list to get the corresponding int
-        months = ['january', 'february', 'march', 'april', 'may', 'june']
-        month = months.index(month) + 1
+        # use the index of the months_data list to get the corresponding int
+        month = months_data.index(month) + 1
 
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
@@ -122,13 +121,12 @@ def load_data(city, month, day):
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
-    months = ['january', 'february', 'march', 'april', 'may', 'june']
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
     # display the most common month
-    most_comm_month = months[df['month'].mode()[0] - 1]
+    most_comm_month = months_data[df['month'].mode()[0] - 1]
     print('Most common month is {}'.format(most_comm_month.title()))
 
     # display the most common day of week
