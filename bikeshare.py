@@ -2,9 +2,11 @@ import time
 import pandas as pd
 import numpy as np
 
+#initializing global variables
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
+months_data = [ 'january', 'february', 'march', 'april', 'may', 'june' ]
 
 def get_filters():
     """
@@ -15,7 +17,6 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
-    months_data = [ 'january', 'february', 'march', 'april', 'may', 'june' ]
     days_data = [ 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday' ]
     filter_option = [ 'month', 'day', 'both', 'none']
 
@@ -52,7 +53,8 @@ def get_filters():
         # get user input for month (all, january, february, ... , june)
         if filter_selection in ('both','month'):
             while True:
-                month = input('\nPlease type the month to filter\n: ').lower()
+                print('\nInput month:\nAvalaible months data {}'.format(months_data))
+                month = input('Please type the month from available montsh above to filter\n: ').lower()
                 if month not in months_data:
                     print('It\'s not a valid day, please try again.\n')
                 else:
@@ -61,7 +63,7 @@ def get_filters():
         # get user input for day of week (all, monday, tuesday, ... sunday)
         if filter_selection in ('both','day'):
             while True:
-                day = input('\nPlease type the day to filter\n: ').lower()
+                day = input('\nInput day:\nPlease type the day to filter\n: ').lower()
                 if day not in days_data:
                     print('It\'s not a valid day, please try again.\n')
                 else:
@@ -76,6 +78,7 @@ def get_filters():
         if confirm == 'no':
             print('Alright, let\'s restart\n')
         else:
+            print('Alright, starting calculation ...')
             break
 
     print('-'*40)
@@ -97,7 +100,7 @@ def load_data(city, month, day):
 
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    # converrt the Birth Year to integer
+    # convert the Birth Year to integer
     # df['Birth Year'] = df['Birth Year'].apply(int)
 
     # extract month and day of week from Start Time to create new columns
@@ -106,9 +109,8 @@ def load_data(city, month, day):
 
     # filter by month if applicable
     if month != 'all':
-        # use the index of the months list to get the corresponding int
-        months = ['january', 'february', 'march', 'april', 'may', 'june']
-        month = months.index(month) + 1
+        # use the index of the months_data list to get the corresponding int
+        month = months_data.index(month) + 1
 
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
@@ -122,13 +124,12 @@ def load_data(city, month, day):
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
-    months = ['january', 'february', 'march', 'april', 'may', 'june']
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
     # display the most common month
-    most_comm_month = months[df['month'].mode()[0] - 1]
+    most_comm_month = months_data[df['month'].mode()[0] - 1]
     print('Most common month is {}'.format(most_comm_month.title()))
 
     # display the most common day of week
