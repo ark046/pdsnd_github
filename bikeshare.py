@@ -52,7 +52,8 @@ def get_filters():
         # get user input for month (all, january, february, ... , june)
         if filter_selection in ('both','month'):
             while True:
-                month = input('\nPlease type the month to filter\n: ').lower()
+                print('\nInput month:\nAvalaible months data {}'.format(months_data))
+                month = input('Please type the month from available montsh above to filter\n: ').lower()
                 if month not in months_data:
                     print('It\'s not a valid day, please try again.\n')
                 else:
@@ -61,7 +62,7 @@ def get_filters():
         # get user input for day of week (all, monday, tuesday, ... sunday)
         if filter_selection in ('both','day'):
             while True:
-                day = input('\nPlease type the day to filter\n: ').lower()
+                day = input('\nInput day:\nPlease type the day to filter\n: ').lower()
                 if day not in days_data:
                     print('It\'s not a valid day, please try again.\n')
                 else:
@@ -76,6 +77,7 @@ def get_filters():
         if confirm == 'no':
             print('Alright, let\'s restart\n')
         else:
+            print('Alright, starting calculation ...')
             break
 
     print('-'*40)
