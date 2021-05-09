@@ -2,6 +2,7 @@ import time
 import pandas as pd
 import numpy as np
 
+#initializing global variables
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
@@ -99,7 +100,7 @@ def load_data(city, month, day):
 
     # convert the Start Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    # converrt the Birth Year to integer
+    # convert the Birth Year to integer
     # df['Birth Year'] = df['Birth Year'].apply(int)
 
     # extract month and day of week from Start Time to create new columns
